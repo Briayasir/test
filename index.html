@@ -1,233 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bria Yasir | WordPress Developer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hannan - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    body.dark { background: #121212; color: #eee; }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    /* Fade-in animation */
+    .fade-in { opacity: 0; animation: fadeInAnim 1s forwards; }
+    .fade-in.delay-1 { animation-delay: 0.8s; }
+    @keyframes fadeInAnim { to { opacity: 1; } }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#f4f6f8;color:#333;line-height:1.6;scroll-behavior:smooth}
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed; top: 20px; right: 20px; z-index: 1000;
+      display: flex; align-items: center; gap: 8px;
+      user-select: none; color: #333; font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    body.dark .theme-toggle { color: #eee; }
+    .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+    .switch input { display: none; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc; border-radius: 24px; transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background-color: white; border-radius: 50%; transition: 0.4s;
+    }
+    input:checked + .slider { background-color: #2196F3; }
+    input:checked + .slider:before { transform: translateX(26px); }
 
-/* HEADER */
-header{
-  background:linear-gradient(135deg,#1e3c72,#2a5298);
-  color:#fff;
-  padding:90px 20px;
-  text-align:center;
-}
-header h1{font-size:3rem;animation:fadeDown 1s}
-header p{margin-top:10px;font-size:1.2rem;opacity:.95}
+    /* Banner */
+    .banner {
+      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=70') center/cover no-repeat;
+      width: 100vw; min-height: 60vh;
+      display: flex; align-items: center; justify-content: center;
+      color: white; text-align: center; padding: 0 20px; position: relative;
+      overflow: hidden;
+    }
+    .banner-content {
+      background: rgba(0,0,0,0.55);
+      padding: 30px 60px; border-radius: 12px;
+      max-width: 800px; width: 100%; margin: auto;
+    }
+    .name {
+      font-size: 4rem; font-weight: 900; margin: 0;
+      font-family: Poppins, Inter, sans-serif;
+    }
 
-/* BUTTON */
-.btn{
-  display:inline-block;
-  margin-top:25px;
-  padding:12px 32px;
-  background:#fff;
-  color:#2a5298;
-  text-decoration:none;
-  font-weight:600;
-  border-radius:30px;
-  transition:.3s;
-}
-.btn:hover{background:#ddd}
+    /* Typewriter */
+    #typewriter {
+      border-right: 2px solid rgba(255,255,255,0.75);
+      white-space: pre-wrap; overflow: hidden; display: block;
+      font-size: 1.5rem; margin-top: 15px; max-width: 100%; line-height: 1.4;
+    }
 
-/* SECTION */
-section{
-  padding:80px 20px;
-  max-width:1200px;
-  margin:auto;
-}
-h2{text-align:center;font-size:2.4rem;margin-bottom:45px;color:#1e3c72}
+    /* Contact info */
+    .contact-info {
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+      padding: 15px 25px; border-radius: 10px; margin-top: 20px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-size: 0.9rem;
+    }
+    .contact-info a { color: white; text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
 
-/* ABOUT */
-.about p{
-  max-width:850px;
-  margin:auto;
-  text-align:center;
-  font-size:1.1rem;
-}
+    /* Sections */
+    .section { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+    h2 {
+      text-align: center; margin-bottom: 40px; font-size: 2.5rem;
+      font-weight: 700; color: #2c3e50;
+    }
+    body.dark h2 { color: #3498db; }
+    .about p {
+      max-width: 85%; text-align: center; margin: 0 auto;
+      font-size: 1.1rem; line-height: 1.75;
+    }
 
-/* SKILLS */
-.skills{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
-.skill-box{
-  background:#fff;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 10px 20px rgba(0,0,0,.08);
-  transition:.4s;
-}
-.skill-box:hover{transform:translateY(-6px)}
-.skill-box h3{margin-bottom:15px;color:#2a5298}
+    /* Grids */
+    .skills-grid, .projects-grid, .experience-grid { display: grid; gap: 20px; }
+    .projects-grid, .experience-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
 
-/* PROJECTS */
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
-}
-.project{
-  background:#fff;
-  border-radius:15px;
-  box-shadow:0 12px 25px rgba(0,0,0,.1);
-  transition:.4s;
-}
-.project:hover{transform:translateY(-8px)}
-.project-content{padding:22px}
-.project h3{color:#1e3c72;margin-bottom:8px}
-.project a{
-  display:inline-block;
-  margin-top:14px;
-  color:#2a5298;
-  font-weight:600;
-  text-decoration:none;
-}
+    /* Cards */
+    .skill-card, .project-card, .exp-card {
+      background: white; color: #333; text-align: left;
+      padding: 25px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 4px solid #3498db;
+    }
+    body.dark .skill-card, body.dark .project-card, body.dark .exp-card {
+      background: #222; color: #eee; box-shadow: 0 8px 16px rgba(255,255,255,0.1);
+    }
+    .skill-card:hover, .project-card:hover, .exp-card:hover {
+      transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    .project-card img {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; margin-bottom: 15px;
+    }
 
-/* CONTACT */
-.contact-form{
-  max-width:600px;
-  margin:auto;
-  background:#fff;
-  padding:35px;
-  border-radius:18px;
-  box-shadow:0 12px 25px rgba(0,0,0,.1);
-}
-.contact-form input,
-.contact-form textarea{
-  width:100%;
-  padding:14px;
-  margin-bottom:15px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  font-size:1rem;
-}
-.contact-form button{
-  width:100%;
-  padding:14px;
-  border:none;
-  background:#1e3c72;
-  color:#fff;
-  font-size:1.1rem;
-  border-radius:30px;
-  cursor:pointer;
-}
-.contact-form button:hover{background:#16325c}
+    .skill-card h3, .project-card h3, .exp-card h3 { margin: 0 0 15px; font-size: 1.3rem; color: #2c3e50; }
+    body.dark .skill-card h3, body.dark .project-card h3, body.dark .exp-card h3 { color: #3498db; }
 
-/* FOOTER */
-footer{
-  background:#1e3c72;
-  color:#fff;
-  text-align:center;
-  padding:30px 20px;
-}
+    /* Experience */
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap;
+    }
+    .exp-title { font-size: 1.3rem; font-weight: 700; color: #2c3e50; }
+    body.dark .exp-title { color: #3498db; }
+    .exp-company { font-size: 1.1rem; font-weight: 600; color: #7f8c8d; margin-bottom: 5px; }
+    .exp-duration { font-size: 0.9rem; color: #95a5a6; font-style: italic; }
 
-/* WHATSAPP FLOAT */
-.whatsapp{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  z-index:999;
-}
-.whatsapp img{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  box-shadow:0 8px 20px rgba(0,0,0,.3);
-}
+    .exp-card ul { margin: 15px 0 0; padding-left: 18px; }
+    .exp-card li { margin: 8px 0; line-height: 1.6; }
 
-/* ANIMATIONS */
-.fade{opacity:0;transform:translateY(30px);transition:1s}
-.fade.show{opacity:1;transform:translateY(0)}
-@keyframes fadeDown{
-  from{opacity:0;transform:translateY(-30px)}
-  to{opacity:1;transform:translateY(0)}
-}
+    /* GitHub button */
+    .github-btn {
+      display: block; max-width: 250px; margin: 40px auto 0; padding: 12px 25px;
+      background: #24292e; color: white; font-weight: 700; text-align: center;
+      border-radius: 6px; text-decoration: none; transition: background-color 0.3s ease;
+    }
+    .github-btn:hover { background: #444c56; }
 
-@media(max-width:600px){
-  header h1{font-size:2.2rem}
-}
-</style>
+    /* Footer */
+    footer {
+      background: #2c3e50; color: white; text-align: center;
+      padding: 30px 0; margin-top: 50px;
+    }
+    body.dark footer { background: #1a1a1a; }
+
+    /* LinkedIn */
+    .linkedin-icon { position: fixed; bottom: 20px; right: 20px; z-index: 1100; }
+    .linkedin-icon img { width: 40px; height: 40px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); transition: filter 0.3s ease; }
+    .linkedin-icon:hover img { filter: drop-shadow(0 0 6px #0A66C2); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .exp-header { flex-direction: column; align-items: flex-start; }
+      .name { font-size: 2.4rem; }
+      #typewriter { font-size: 1.05rem; }
+      .banner-content { padding: 20px; }
+      .contact-info { flex-direction: column; text-align: center; }
+    }
+    @media (min-width: 600px) {
+      .projects-grid, .experience-grid { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 992px) {
+      .skills-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <h1>Bria Yasir</h1>
-  <p>WordPress Developer | Elementor Expert | Shopify Specialist</p>
-  <a href="#projects" class="btn">View My Work</a>
-</header>
+  <div class="theme-toggle">
+    <label class="switch">
+      <input type="checkbox" id="theme-switch" />
+      <span class="slider"></span>
+    </label>
+    <span id="theme-label">Light</span>
+  </div>
 
-<section class="about fade">
-  <h2>About Me</h2>
-  <p>
-    I am a professional <strong>WordPress Developer</strong> specializing in Elementor,
-    business websites, service-based platforms, educational websites, and Shopify stores.
-    All showcased projects are built for <strong>foreign clients (USA & UAE)</strong>.
-  </p>
-</section>
+  <header class="banner">
+    <div class="banner-content">
+      <h1 class="name fade-in">Hannan Mustafa/h1>
+      <p id="typewriter" class="fade-in delay-1"></p>
+      <div class="contact-info fade-in delay-1">
+        <span>📧 haniiawan786@gmail.com</span>
+        <span>📱 (+92) 3197034704</span>
+        <span>📍 Pakistan</span>
+        <!-- <a href="https://briayasir.github.io/" target="_blank">🌐 Portfolio</a> -->
+      </div>
+    </div>
+  </header>
 
-<section class="fade">
+  <section class="about section fade-in">
+    <h2>About Me</h2>
+    <p>I am a professional WordPress Developer specializing in Elementor, business websites, service-based platforms, educational websites, and Shopify stores. All showcased projects are built for foreign clients (USA & UAE).</p>
+  </section>
+
+  <section class="skills section fade-in">
   <h2>Skills</h2>
-  <div class="skills">
-    <div class="skill-box"><h3>WordPress</h3><p>Custom themes, speed & security</p></div>
-    <div class="skill-box"><h3>Elementor</h3><p>Pixel-perfect layouts</p></div>
-    <div class="skill-box"><h3>Shopify</h3><p>Full store setup</p></div>
-    <div class="skill-box"><h3>SEO & Speed</h3><p>Core Web Vitals</p></div>
+  <div class="skills-grid">
+    <div class="skill-card"><h3>WordPress Development</h3><ul><li>Custom WordPress themes development</li><li>Theme customization & plugin integration</li><li>Website speed optimization (GTmetrix, PageSpeed)</li><li>Security hardening & malware protection</li></ul></div>
+    <div class="skill-card"><h3>Elementor Expertise</h3><ul><li>Pixel-perfect UI/UX layouts</li><li>Responsive design for all devices</li><li>Custom sections, animations & effects</li><li>Dynamic content & reusable templates</li></ul></div>
+    <div class="skill-card"><h3>Shopify Development</h3><ul><li>Complete Shopify store setup</li><li>Theme customization & branding</li><li>Product uploads & payment gateway setup</li><li>Speed optimization & conversion-focused layout</li></ul></div>
+    <div class="skill-card"><h3>SEO & Performance</h3><ul><li>On-page SEO best practices</li><li>Core Web Vitals optimization</li><li>Image compression & lazy loading</li><li>Clean code & fast-loading pages</li></ul></div>
   </div>
-</section>
 
-<section id="projects" class="fade">
-  <h2>Portfolio Projects</h2>
-  <div class="projects">
+  </section>
 
-    <div class="project"><div class="project-content"><h3>IdealTech US</h3><p>USA-based tech company website</p><a href="https://idealtechus.com/" target="_blank">View →</a></div></div>
-    <div class="project"><div class="project-content"><h3>Read Quraan</h3><p>Online Quran learning academy</p><a href="https://readquraan.com/" target="_blank">View →</a></div></div>
-    <div class="project"><div class="project-content"><h3>Elite Car Lift</h3><p>Dubai car lift service</p><a href="https://elitecarlift.com/" target="_blank">View →</a></div></div>
-    <div class="project"><div class="project-content"><h3>MoonMart</h3><p>Shopify Store (UAE)</p><a href="https://moonmart.ae" target="_blank">View →</a></div></div>
+  
+  <section class="projects section fade-in">
+  <h2>Key Projects</h2>
+  <div class="projects-grid">
+
+    <!-- Read Quran -->
+    <div class="project-card">
+      <img src="assets/images/readquraan.png" alt="Read Quran Online Academy">
+      <h3>Read Quran – Online Quran Learning Academy</h3>
+      <ul>
+        <li>Online Quran academy providing live classes to foreign students worldwide.</li>
+        <li>One-on-one and group sessions with qualified male & female tutors.</li>
+        <li>Responsive, user-friendly design with course packages and easy registration.</li>
+      </ul>
+      <a href="https://readquraan.com/" target="_blank" class="project-link">Live Website →</a>
+    </div>
+
+    <!-- Elite Carlift -->
+    <div class="project-card">
+      <img src="assets/images/elitecarlift.png" alt="Elite Carlift Service Dubai">
+      <h3>Elite Carlift – Dubai & Abu Dhabi</h3>
+      <ul>
+        <li>Professional car lift service operating between Dubai and Abu Dhabi.</li>
+        <li>Private and sharing rides available for daily, weekly & monthly travel.</li>
+        <li>Optimized for bookings, mobile responsiveness, and customer trust.</li>
+      </ul>
+      <a href="https://elitecarlift.com/" target="_blank" class="project-link">Live Website →</a>
+    </div>
+
+    <!-- IdealTech -->
+    <div class="project-card">
+      <img src="assets/images/idealtech.png" alt="IdealTech Solutions IT Company">
+      <h3>IdealTech Solutions – IT Services Company</h3>
+      <ul>
+        <li>US-based IT solutions company offering hardware & enterprise services.</li>
+        <li>Clean corporate layout focused on sustainability and asset recovery.</li>
+        <li>SEO-optimized and performance-focused WordPress implementation.</li>
+      </ul>
+      <a href="https://idealtechus.com/" target="_blank" class="project-link">Live Website →</a>
+    </div>
 
   </div>
-</section>
+  </section>
 
-<section id="contact" class="fade">
-  <h2>Contact Me</h2>
-  <form class="contact-form"
-    action="mailto:haniiawan786@gmail.com"
-    method="post" enctype="text/plain">
-    <input type="text" name="Name" placeholder="Your Name" required>
-    <input type="email" name="Email" placeholder="Your Email" required>
-    <textarea name="Message" rows="5" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-</section>
+  <footer>
+    <p>© 2026 Hannan Mustafa - Wordpress & Shopify Developer</p>
+  </footer>
 
-<footer>
-  <p>© 2025 Bria Yasir | WordPress Developer</p>
-  <p>Serving International Clients</p>
-</footer>
+  <a href="https://linkedin.com/in/briayasir" target="_blank" class="linkedin-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" /></a>
 
-<!-- WhatsApp -->
-<a class="whatsapp"
-   href="https://wa.me/923197034704"
-   target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
-</a>
+  <script>
+    const themeSwitch = document.getElementById('theme-switch');
+    const themeLabel = document.getElementById('theme-label');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    function setTheme(theme) {
+      document.body.classList.remove('light','dark');
+      document.body.classList.add(theme);
+      themeLabel.textContent = theme.charAt(0).toUpperCase()+theme.slice(1);
+      themeSwitch.checked = theme==='dark';
+    }
+    setTheme(prefersDarkScheme.matches?'dark':'light');
+    themeSwitch.addEventListener('change',()=>{ setTheme(themeSwitch.checked?'dark':'light'); });
 
-<script>
-const faders=document.querySelectorAll('.fade');
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('show')}
-  })
-},{threshold:0.2});
-faders.forEach(f=>obs.observe(f));
-</script>
+    const typewriterEl = document.getElementById('typewriter');
+    const typewriterText = 'Senior Data Engineer | Databricks & Snowflake Expert | Cloud-Native ETL Architect | AI & Healthcare Analytics';
+    let i = 0;
+    function typeWriter(){ if(i<typewriterText.length){ typewriterEl.textContent += typewriterText.charAt(i); i++; setTimeout(typeWriter,50);} if(i===typewriterText.length){ typewriterEl.style.borderRight='none';}}
+    setTimeout(typeWriter,800);
 
+    const faders=document.querySelectorAll('.fade-in');
+    const appearOptions={threshold:0.1,rootMargin:"0px 0px -50px 0px"};
+    const appearOnScroll=new IntersectionObserver((entries,observer)=>{entries.forEach(entry=>{if(!entry.isIntersecting)return; entry.target.style.animationPlayState='running'; observer.unobserve(entry.target);});},appearOptions);
+    faders.forEach(fader=>{fader.style.animationPlayState='paused'; appearOnScroll.observe(fader);});
+  </script>
 </body>
 </html>
