@@ -1,297 +1,234 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hannan - Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
-  <style>
-    /* Reset & base */
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #f5f5f5;
-      color: #333;
-      overflow-x: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    body.dark { background: #121212; color: #eee; }
+<meta charset="UTF-8">
+<title>My Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* Fade-in animation */
-    .fade-in { opacity: 0; animation: fadeInAnim 1s forwards; }
-    .fade-in.delay-1 { animation-delay: 0.8s; }
-    @keyframes fadeInAnim { to { opacity: 1; } }
+<!-- ASSETS -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="assets/images/favicon.png">
 
-    /* Theme toggle */
-    .theme-toggle {
-      position: fixed; top: 20px; right: 20px; z-index: 1000;
-      display: flex; align-items: center; gap: 8px;
-      user-select: none; color: #333; font-weight: 600;
-      transition: color 0.3s ease;
-    }
-    body.dark .theme-toggle { color: #eee; }
-    .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
-    .switch input { display: none; }
-    .slider {
-      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #ccc; border-radius: 24px; transition: 0.4s;
-    }
-    .slider:before {
-      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
-      background-color: white; border-radius: 50%; transition: 0.4s;
-    }
-    input:checked + .slider { background-color: #2196F3; }
-    input:checked + .slider:before { transform: translateX(26px); }
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    /* Banner */
-    .banner {
-      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=70') center/cover no-repeat;
-      width: 100vw; min-height: 60vh;
-      display: flex; align-items: center; justify-content: center;
-      color: white; text-align: center; padding: 0 20px; position: relative;
-      overflow: hidden;
-    }
-    .banner-content {
-      background: rgba(0,0,0,0.55);
-      padding: 30px 60px; border-radius: 12px;
-      max-width: 800px; width: 100%; margin: auto;
-    }
-    .name {
-      font-size: 4rem; font-weight: 900; margin: 0;
-      font-family: Poppins, Inter, sans-serif;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+body{background:#f5f5f5;color:#111;transition:.4s;overflow-x:hidden}
+body.dark{background:#020617;color:#fff}
 
-    /* Typewriter */
-    #typewriter {
-      border-right: 2px solid rgba(255,255,255,0.75);
-      white-space: pre-wrap; overflow: hidden; display: block;
-      font-size: 1.5rem; margin-top: 15px; max-width: 100%; line-height: 1.4;
-    }
+/* HEADER */
+header{
+  position:fixed;top:0;width:100%;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 60px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px)
+}
+body.dark header{background:rgba(2,6,23,.9)}
+.toggle{cursor:pointer;padding:6px 14px;border-radius:20px;background:#000;color:#fff}
+body.dark .toggle{background:#fff;color:#000}
 
-    /* Contact info */
-    .contact-info {
-      background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-      padding: 15px 25px; border-radius: 10px; margin-top: 20px;
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; font-size: 0.9rem;
-    }
-    .contact-info a { color: white; text-decoration: none; }
-    .contact-info a:hover { text-decoration: underline; }
+/* SECTION COMMON */
+section{padding:120px 8%}
+h2{text-align:center;font-size:34px;margin-bottom:20px}
 
-    /* Sections */
-    .section { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
-    h2 {
-      text-align: center; margin-bottom: 40px; font-size: 2.5rem;
-      font-weight: 700; color: #2c3e50;
-    }
-    body.dark h2 { color: #3498db; }
-    .about p {
-      max-width: 85%; text-align: center; margin: 0 auto;
-      font-size: 1.1rem; line-height: 1.75;
-    }
+/* HERO */
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.hero h1{font-size:42px}
+.hero span{color:#3b82f6}
 
-    /* Grids */
-    .skills-grid, .projects-grid, .experience-grid { display: grid; gap: 20px; }
-    .projects-grid, .experience-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
+/* ABOUT */
+.about p{
+  max-width:900px;margin:auto;text-align:center;
+  line-height:1.8;font-size:16px
+}
 
-    /* Cards */
-    .skill-card, .project-card, .exp-card {
-      background: white; color: #333; text-align: left;
-      padding: 25px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border-left: 4px solid #3498db;
-    }
-    body.dark .skill-card, body.dark .project-card, body.dark .exp-card {
-      background: #222; color: #eee; box-shadow: 0 8px 16px rgba(255,255,255,0.1);
-    }
-    .skill-card:hover, .project-card:hover, .exp-card:hover {
-      transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-    .project-card img {
-      width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; margin-bottom: 15px;
-    }
+/* SKILLS */
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;max-width:900px;margin:auto
+}
+.skill{
+  background:#fff;padding:20px;border-radius:14px;
+  text-align:center;box-shadow:0 15px 40px rgba(0,0,0,.1)
+}
+body.dark .skill{background:#020617}
+.skill h4{margin-top:10px}
 
-    .skill-card h3, .project-card h3, .exp-card h3 { margin: 0 0 15px; font-size: 1.3rem; color: #2c3e50; }
-    body.dark .skill-card h3, body.dark .project-card h3, body.dark .exp-card h3 { color: #3498db; }
+/* PORTFOLIO */
+.portfolio{height:100vh;display:flex;align-items:center;justify-content:center;position:relative}
+.project-card{
+  width:70%;max-width:850px;position:absolute;
+  background:#fff;padding:30px;border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,.15);
+  opacity:0;transform:translateX(100%);transition:.8s ease
+}
+body.dark .project-card{background:#020617}
+.project-card.active{opacity:1;transform:translateX(0)}
+.project-card.exit-left{transform:translateX(-120%);opacity:0}
+.project-card img{width:100%;border-radius:12px;margin-bottom:15px}
+.project-card ul{margin-left:20px}
+.project-link{display:inline-block;margin-top:12px;color:#3b82f6;font-weight:600}
 
-    /* Experience */
-    .exp-header {
-      display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap;
-    }
-    .exp-title { font-size: 1.3rem; font-weight: 700; color: #2c3e50; }
-    body.dark .exp-title { color: #3498db; }
-    .exp-company { font-size: 1.1rem; font-weight: 600; color: #7f8c8d; margin-bottom: 5px; }
-    .exp-duration { font-size: 0.9rem; color: #95a5a6; font-style: italic; }
+/* FOOTER */
+footer{text-align:center;padding:30px;background:#000;color:#fff}
+body.dark footer{background:#020617}
 
-    .exp-card ul { margin: 15px 0 0; padding-left: 18px; }
-    .exp-card li { margin: 8px 0; line-height: 1.6; }
-
-    /* GitHub button */
-    .github-btn {
-      display: block; max-width: 250px; margin: 40px auto 0; padding: 12px 25px;
-      background: #2c3e50; color: white; font-weight: 700; text-align: center;
-      border-radius: 6px; text-decoration: none; transition: background-color 0.3s ease;
-    }
-    .github-btn:hover { background: #183b5e; }
-
-    /* Footer */
-    footer {
-      background: #2c3e50; color: white; text-align: center;
-      padding: 30px 0; margin-top: 50px;
-    }
-    body.dark footer { background: #1a1a1a; }
-
-    /* LinkedIn */
-    .linkedin-icon { position: fixed; bottom: 20px; right: 20px; z-index: 1100; }
-    .linkedin-icon img { width: 40px; height: 40px; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); transition: filter 0.3s ease; }
-    .linkedin-icon:hover img { filter: drop-shadow(0 0 6px #0A66C2); }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .skills-grid { grid-template-columns: 1fr; }
-      .exp-header { flex-direction: column; align-items: flex-start; }
-      .name { font-size: 2.4rem; }
-      #typewriter { font-size: 1.05rem; }
-      .banner-content { padding: 20px; }
-      .contact-info { flex-direction: column; text-align: center; }
-    }
-    @media (min-width: 600px) {
-      .projects-grid, .experience-grid { grid-template-columns: repeat(2, 1fr); }
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 992px) {
-      .skills-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .whatsapp{
-      position:fixed;
-      bottom:25px;
-      right:25px;
-      z-index:999;
-    }
-    .whatsapp img{
-      width:55px;
-      height:55px;
-      border-radius:50%;
-      box-shadow:0 8px 20px rgba(0,0,0,.3);
-    }
-  </style>
+@media(max-width:768px){
+  header{padding:15px 25px}
+  .project-card{width:90%}
+}
+</style>
 </head>
+
 <body>
 
-  <div class="theme-toggle">
-    <label class="switch">
-      <input type="checkbox" id="theme-switch" />
-      <span class="slider"></span>
-    </label>
-    <span id="theme-label">Light</span>
-  </div>
+<header>
+  <h3>My Portfolio</h3>
+  <div class="toggle" onclick="toggleTheme()">🌙</div>
+</header>
 
-  <header class="banner">
-    <div class="banner-content">
-      <h1 class="name fade-in">Hannan Mustafa</h1>
-      <p id="typewriter" class="fade-in delay-1"></p>
-      <div class="contact-info fade-in delay-1">
-        <span>📧 haniiawan786@gmail.com</span>
-        <span>📱 (+92) 3197034704</span>
-        <span>📍 Pakistan</span>
-        <!-- <a href="https://briayasir.github.io/" target="_blank">🌐 Portfolio</a> -->
-      </div>
-    </div>
-  </header>
+<!-- HERO -->
+<section class="hero">
+  <h1>I Build <span id="typewriter"></span></h1>
+  <p>Web • Shopify • WordPress • Business Websites</p>
+</section>
 
-  <section class="about section fade-in">
-    <h2>About Me</h2>
-    <p>I am a professional WordPress Developer specializing in Elementor, business websites, service-based platforms, educational websites, and Shopify stores. All showcased projects are built for foreign clients (USA & UAE).</p>
-  </section>
+<!-- ABOUT -->
+<section class="about">
+  <h2>About Me</h2>
+  <p>
+    I am a professional web developer specializing in modern business websites,
+    Shopify stores, and corporate platforms. I focus on performance, UI/UX,
+    and conversion-driven designs for international clients.
+  </p>
+</section>
 
-  <section class="skills section fade-in">
+<!-- SKILLS -->
+<section class="skills">
   <h2>Skills</h2>
   <div class="skills-grid">
-    <div class="skill-card"><h3>WordPress Development</h3><ul><li>Custom WordPress themes development</li><li>Theme customization & plugin integration</li><li>Website speed optimization (GTmetrix, PageSpeed)</li><li>Security hardening & malware protection</li></ul></div>
-    <div class="skill-card"><h3>Elementor Expertise</h3><ul><li>Pixel-perfect UI/UX layouts</li><li>Responsive design for all devices</li><li>Custom sections, animations & effects</li><li>Dynamic content & reusable templates</li></ul></div>
-    <div class="skill-card"><h3>Shopify Development</h3><ul><li>Complete Shopify store setup</li><li>Theme customization & branding</li><li>Product uploads & payment gateway setup</li><li>Speed optimization & conversion-focused layout</li></ul></div>
-    <div class="skill-card"><h3>SEO & Performance</h3><ul><li>On-page SEO best practices</li><li>Core Web Vitals optimization</li><li>Image compression & lazy loading</li><li>Clean code & fast-loading pages</li></ul></div>
+    <div class="skill">🌐 <h4>HTML / CSS / JS</h4></div>
+    <div class="skill">🛒 <h4>Shopify</h4></div>
+    <div class="skill">🧩 <h4>WordPress</h4></div>
+    <div class="skill">📈 <h4>SEO Friendly</h4></div>
+    <div class="skill">⚡ <h4>Performance Optimization</h4></div>
+    <div class="skill">🎨 <h4>UI / UX Design</h4></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio">
+
+  <!-- 1 -->
+  <div class="project-card active">
+    <img src="assets/images/readquran.png" alt="Read Quran">
+    <h3>Read Quran Academy</h3>
+    <ul>
+      <li>Online Quran learning academy for foreign students.</li>
+      <li>Live classes, Nazra & Hifz programs.</li>
+      <li>User-friendly, trust-focused design.</li>
+    </ul>
+    <a class="project-link" href="https://readquraan.com" target="_blank">Live Website →</a>
   </div>
 
-  </section>
-
-  
-  <section class="projects section fade-in">
-  <h2>Key Projects</h2>
-  <div class="projects-grid">
-
-    <!-- Read Quran -->
-    <div class="project-card">
-      <img src="assets/images/readquraan.png" alt="Read Quran Online Academy">
-      <h3>Read Quran – Online Quran Learning Academy</h3>
-      <ul>
-        <li>Online Quran academy providing live classes to foreign students worldwide.</li>
-        <li>One-on-one and group sessions with qualified male & female tutors.</li>
-        <li>Responsive, user-friendly design with course packages and easy registration.</li>
-      </ul>
-      <a href="https://readquraan.com/" target="_blank" class="github-btn">Live Website →</a>
-    </div>
-
-    <!-- Elite Carlift -->
-    <div class="project-card">
-      <img src="assets/images/elitecarlift.png" alt="Elite Carlift Service Dubai">
-      <h3>Elite Carlift – Dubai & Abu Dhabi</h3>
-      <ul>
-        <li>Professional car lift service operating between Dubai and Abu Dhabi.</li>
-        <li>Private and sharing rides available for daily, weekly & monthly travel.</li>
-        <li>Optimized for bookings, mobile responsiveness, and customer trust.</li>
-      </ul>
-      <a href="https://elitecarlift.com/" target="_blank" class="github-btn">Live Website →</a>
-    </div>
-
-    <!-- IdealTech -->
-    <div class="project-card">
-      <img src="assets/images/idealtech.png" alt="IdealTech Solutions IT Company">
-      <h3>IdealTech Solutions – IT Services Company</h3>
-      <ul>
-        <li>US-based IT solutions company offering hardware & enterprise services.</li>
-        <li>Clean corporate layout focused on sustainability and asset recovery.</li>
-        <li>SEO-optimized and performance-focused WordPress implementation.</li>
-      </ul>
-      <a href="https://idealtechus.com/" target="_blank" class="github-btn">Live Website →</a>
-    </div>
-
+  <!-- 2 -->
+  <div class="project-card">
+    <img src="assets/images/elitecarlift.png" alt="Elite Car Lift">
+    <h3>Elite Car Lift – UAE</h3>
+    <ul>
+      <li>Dubai ↔ Abu Dhabi car lift services.</li>
+      <li>Private & sharing rides available.</li>
+      <li>Corporate & daily commute bookings.</li>
+    </ul>
+    <a class="project-link" href="https://elitecarlift.com" target="_blank">Live Website →</a>
   </div>
-  </section>
 
-  <footer>
-    <p>© 2026 Hannan Mustafa - Wordpress & Shopify Developer</p>
-  </footer>
+  <!-- 3 -->
+  <div class="project-card">
+    <img src="assets/images/idealtech.png" alt="Ideal Tech">
+    <h3>IdealTech US – IT Company</h3>
+    <ul>
+      <li>Professional IT & software services website.</li>
+      <li>Corporate branding & clean UI.</li>
+      <li>Optimized for business leads.</li>
+    </ul>
+    <a class="project-link" href="https://idealtechus.com" target="_blank">Live Website →</a>
+  </div>
 
-  <!-- WhatsApp -->
-  <a class="whatsapp" href="https://wa.me/923197034704" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
+  <!-- 4 -->
+  <div class="project-card">
+    <img src="assets/images/jbfstainless.png" alt="JBF Stainless">
+    <h3>JBF Stainless</h3>
+    <ul>
+      <li>Industrial stainless steel tanks & vessels.</li>
+      <li>Food, dairy & chemical industry focus.</li>
+      <li>Global compliance & precision engineering.</li>
+    </ul>
+    <a class="project-link" href="https://jbfstainless.com" target="_blank">Live Website →</a>
+  </div>
 
-  <script>
-    const themeSwitch = document.getElementById('theme-switch');
-    const themeLabel = document.getElementById('theme-label');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    function setTheme(theme) {
-      document.body.classList.remove('light','dark');
-      document.body.classList.add(theme);
-      themeLabel.textContent = theme.charAt(0).toUpperCase()+theme.slice(1);
-      themeSwitch.checked = theme==='dark';
+  <!-- 5 -->
+  <div class="project-card">
+    <img src="assets/images/moonmart.png" alt="MoonMart">
+    <h3>MoonMart.ae – Shopify Store</h3>
+    <ul>
+      <li>UAE-based Shopify eCommerce store.</li>
+      <li>Clean product layout & promotions.</li>
+      <li>Optimized checkout experience.</li>
+    </ul>
+    <a class="project-link" href="https://moonmart.ae" target="_blank">Live Website →</a>
+  </div>
+
+  <!-- 6 -->
+  <div class="project-card">
+    <img src="assets/images/pakibazar.png" alt="Pakibazar">
+    <h3>PakiBazar.com.pk</h3>
+    <ul>
+      <li>Pakistani multi-category online marketplace.</li>
+      <li>Fast browsing & deal-focused UI.</li>
+      <li>Local audience optimized store.</li>
+    </ul>
+    <a class="project-link" href="https://pakibazar.com.pk" target="_blank">Live Website →</a>
+  </div>
+
+</section>
+
+<footer>© 2026 – My Portfolio</footer>
+
+<script>
+/* THEME */
+function toggleTheme(){document.body.classList.toggle("dark")}
+
+/* TYPEWRITER */
+const words=["Websites","Shopify Stores","Business Solutions"];
+let i=0,j=0,del=false;
+(function type(){
+  let w=words[i];
+  document.getElementById("typewriter").innerText=w.slice(0,j);
+  if(!del && j++===w.length){del=true}
+  else if(del && j--===0){del=false;i=(i+1)%words.length}
+  setTimeout(type,del?60:120);
+})();
+
+/* PORTFOLIO SCROLL */
+const cards = document.querySelectorAll(".project-card");
+let current = 0;
+let isScrolling = false;
+
+window.addEventListener("wheel", e => {
+  if (isScrolling) return;
+  if (e.deltaY > 0 && current < cards.length - 1) {
+    isScrolling = true;
+    cards[current].classList.add("exit-left");
+    cards[current].classList.remove("active");
+    current++;
+    cards[current].classList.add("active");
+    setTimeout(() => {
+      isScrolling = false;
+    }, 900);
     }
-    setTheme(prefersDarkScheme.matches?'dark':'light');
-    themeSwitch.addEventListener('change',()=>{ setTheme(themeSwitch.checked?'dark':'light'); });
+});
+</script>
 
-    const typewriterEl = document.getElementById('typewriter');
-    const typewriterText = 'Wordpress & Shopify Developer | Custom Wordpress Website Developer';
-    let i = 0;
-    function typeWriter(){ if(i<typewriterText.length){ typewriterEl.textContent += typewriterText.charAt(i); i++; setTimeout(typeWriter,50);} if(i===typewriterText.length){ typewriterEl.style.borderRight='none';}}
-    setTimeout(typeWriter,800);
-
-    const faders=document.querySelectorAll('.fade-in');
-    const appearOptions={threshold:0.1,rootMargin:"0px 0px -50px 0px"};
-    const appearOnScroll=new IntersectionObserver((entries,observer)=>{entries.forEach(entry=>{if(!entry.isIntersecting)return; entry.target.style.animationPlayState='running'; observer.unobserve(entry.target);});},appearOptions);
-    faders.forEach(fader=>{fader.style.animationPlayState='paused'; appearOnScroll.observe(fader);});
-  </script>
 </body>
 </html>
